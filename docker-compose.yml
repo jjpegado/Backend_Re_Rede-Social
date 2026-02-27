@@ -1,5 +1,5 @@
 services:
-    moingo:
+    mongo:
         image: mongo
         restart: always 
         env_file: .env
