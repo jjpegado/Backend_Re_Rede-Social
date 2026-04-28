@@ -3,9 +3,26 @@ import User  from "../models/User";
 
 export class UserController {
 
-    async get(req: Request, res: Response) {
+    async getUsers(req: Request, res: Response) {
         try {
             const users = await User.find();
+            return res.json(users);
+        } catch (error) {
+            return res.status(500).json({ message: 'Erro interno do servidor' });
+        }
+    }
+
+    async show(req: Request, res: Response) {
+
+        const { id } = req.params;
+
+        try {
+            const users = await User.findById( id );
+
+            if (!users) {
+                return res.status(404).json({ message: 'Usuário não encontrado' });
+            }
+
             return res.json(users);
         } catch (error) {
             return res.status(500).json({ message: 'Erro interno do servidor' });
